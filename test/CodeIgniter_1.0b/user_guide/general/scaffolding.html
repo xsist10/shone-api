@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+Scaffolding
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Scaffolding</h1>
+
+<p>Code Igniter's Scaffolding feature provides a fast and very convenient way to add, edit, or delete information in your database 
+during development.</p>
+
+<p class="important"><strong>Very Important:</strong>  Scaffolding is intended for development use only.  It provides very little
+security other than a "secret" word, so anyone who has access to your Code Igniter site can potentially edit or delete your information.  
+If you use scaffolding make sure you disable it immediately after you are through using it.  DO NOT leave it enabled on a live site.
+And please, set a secret word before you use it.</p>
+
+
+<h2>Why would someone use scaffolding?</h2>
+
+<p>Here's a typical scenario:  You create a new database table during development and you'd like a quick way to insert some data
+into it to work with.  Without scaffolding your choices are either to write some inserts using the command line or to use a
+database management tool like phpMyAdmin.  With Code Igniter's scaffolding feature you can quickly add some data using its browser 
+interface.  And when you are through using the data you can easily delete it.</p>
+
+<h2>Setting a Secret Word</h2>
+
+<p>Before enabling scaffolding please take a moment to set a secret word.  This word, when encountered in your URL,
+will launch the scaffolding interface, so please pick something obscure that no one is likely to guess.</p>
+
+<p>To set a secret word, open your <kbd>config/routes.php</kbd> file and look for this item:</p>
+
+<code>$route['scaffolding_trigger'] = 'scaffolding';</code>
+
+<p>Once you've found it, change the word "scaffolding" on the right to something more unique.</p>
+
+
+<h2>Enabling Scaffolding</h2>
+
+<p>Note: The information on this page assumes you already know how <a href="controllers.html">controllers</a> work, and that you have
+a working one available.  It also assumes you have configured Code Igniter to auto-connect to your <a href="databases.html">database</a>. 
+If not, the information here won't be very relevant, so you are encouraged to go through those sections first.
+Lastly, it assumes you understand what a class constructor is.  If not, read the last section of the <a href="controllers.html">controllers</a>
+page.</p>
+
+<p>To enable scaffolding you will initialize it in your constructor like this:</p>
+
+<code>
+&lt;?php<br />
+class Blog Extends Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function Blog()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::Controller();<br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<samp>$this->load->scaffolding(</samp><kbd>'table_name'</kbd>);</samp><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br />
+?&gt;</code>
+
+<p>Where <kbd>table_name</kbd> is the name of the table (table, not database) you wish to work with.</p>
+
+<p>Once you've initialized scaffolding, you will access it with this URL prototype:
+
+<code>www.your-site.com/index.php/<var>class</var>/<dfn>secret_word</dfn>/</code>
+
+<p>For example, using a controller named <var>Blog</var>, and <dfn>abracadabra</dfn> as the secret word,
+you would access scaffolding like this:</p>
+
+<code>www.your-site.com/index.php/<var>blog</var>/<dfn>abracadabra</dfn>/</code>
+
+<p>The scaffolding interface should be self-explanatory.  You can add, edit or delete records.</p>
+
+
+<h2>A Final Word</h2>
+
+<p>Please do not forget to disable scaffolding when you are through using it.</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

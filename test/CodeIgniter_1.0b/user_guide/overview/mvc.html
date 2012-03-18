@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+MVC
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Model-View-Controller</h1>
+
+<p>Code Igniter is based on the Model-View-Controller development pattern.  
+
+MVC is a software approach that separates application logic from presentation.  In practice, it permits your web pages to contain minimal scripting since the presentation is separate from the PHP scripting.</p>
+
+<ul>
+<li>The <strong>Model</strong> is the core application (i.e. Code Igniter) and the associated data (i.e. your database).</li>
+<li>The <strong>View</strong> is the information that is being presented to a user; generally a web page. </li>
+<li>The <strong>Controller</strong> serves as an <em>intermediary</em> between the Model and the View.  It receives HTTP requests and determines what should be done with them.</li>
+
+</ul>
+
+<p>To make it even more simple:  The Model is the framework and data, the view is the web page, and the controller is the traffic cop between the two.</p>
+
+
+<p><strong>As a PHP developer you will be primarily concerned with Controllers and Views.  You'll be building your own controllers to process HTTP requests and serve the appropriate View.</strong></p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

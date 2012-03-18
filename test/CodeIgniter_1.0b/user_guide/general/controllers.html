@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+Controllers
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Controllers</h1>
+
+<p>Controllers are the heart of your application, as they determine how HTTP requests should be handled.</p>
+
+<h2>What is a Controller?</h2>
+
+<p><dfn>A Controller is simply a class file that is named in a way that can be associated with a URI.</dfn></p>
+
+<p>Consider this URI:</p>
+
+<code>www.your-site.com/index.php/<var>blog</var>/</code>
+
+<p>In the above example, Code Igniter would attempt to find a controller named <dfn>blog.php</dfn> and load it.</p>
+
+<p><strong>When a controller's name matches the first segment of a URI, it will be loaded.</strong></p>
+
+
+<h2>Let's try it:&nbsp; Hello World!</h2>
+
+<p>Let's create a simple controller so you can see it in action.  Using your text editor, create a file called <dfn>blog.php</dfn>, and put the following code in it:</p>
+
+
+<textarea class="textarea" style="width:100%" cols="50" rows="10">
+<?php
+class Blog Extends Controller {
+
+	function index()
+	{
+		echo 'Hello World!';
+	}
+}
+?>
+</textarea>
+
+
+
+<p>Then save the file to your <dfn>application/controllers/</dfn> folder.</p>
+
+<p>Now visit the your site using a URL similar to this:</p>
+
+<code>www.your-site.com/index.php/<var>blog</var>/</code>
+
+<p>If you did it right, you should see <samp>Hello World!</samp>.</p>
+
+<p>Note: Class names must start with an uppercase letter.  In other words, this is valid:
+
+<code>&lt;?php<br />
+class <var>Blog</var> Extends Controller {<br />
+<br />
+}<br />
+?&gt;</code>
+
+<p>This is <strong>not</strong> valid:</p>
+
+<code>&lt;?php<br />
+class <var>blog</var> Extends Controller {<br />
+<br />
+}<br />
+?&gt;</code>
+
+<p>Also, always make sure your controller <dfn>Extends</dfn> the parent controller class so that it can inherit all it's functions.</p> 
+
+
+
+
+<h2>Functions</h2>
+
+<p>In the above example the function name is <dfn>index()</dfn>.  The "index" function is always loaded by default if the 
+<strong>second segment</strong> of the URI is empty.  Another way to show your "Hello World" message would be this:</p>
+
+<code>www.your-site.com/index.php/<var>blog</var>/<samp>index</samp>/</code>
+
+<p><strong>The second segment of the URI determines which function in the controller gets called.</strong></p>
+
+<p>Let's try it.  Add a new function to your controller:</p>
+
+
+<textarea class="textarea" style="width:100%" cols="50" rows="15">
+<?php
+class Blog Extends Controller {
+
+	function index()
+	{
+		echo 'Hello World!';
+	}
+
+	function comments()
+	{
+		echo 'Look at this!';
+	}
+}
+?>
+</textarea>
+
+<p>Now load the following URL to see the <dfn>comment</dfn> function:</p>
+
+<code>www.your-site.com/index.php/<var>blog</var>/<samp>comments</samp>/</code>
+
+<p>You should see your new message.</p>
+
+<h2>Defining a Default Controller</h2>
+
+<p>Code Igniter can be told to load a default controller when a URI is not present, 
+as will be the case when only your site root URL is requested.  To specify a default controller, open 
+your <dfn>config/routes.php</dfn> file and set this variable:</p>
+
+<code>$route['default_controller'] = '<var>Blog</var>';</code>
+
+<p>Where <var>Blog</var> is the name of the controller class you want used.</p>
+
+
+
+<h2>Class Constructors</h2>
+
+
+<p>If you intend to use a constructor in any of your Controllers, you <strong>MUST</strong> place the following line of code in it:</p>
+
+<code>parent::Controller();</code>
+
+<p>The reason this line is necessary is because your local constructor will be overriding the one in the parent controller class so we need to manually call it.</p>
+
+
+<p>If you are not familliar with constructors, in PHP 4, a <em>constructor</em> is simply a function that has the exact same name as the class.
+Here's an example, along with the code from above:</p>
+
+<code>
+&lt;?php<br />
+class <kbd>Blog</kbd> Extends Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>Blog()</kbd><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br />
+?&gt;</code>
+
+<p>In PHP 5, constructors use the following syntax:</p>
+
+<code>
+&lt;?php<br />
+class <kbd>Blog</kbd> Extends Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>__construct()</kbd><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br />
+?&gt;</code>
+
+<p>Constructors are useful if you need to set some default values, or run a default process when your class is instantiated.
+Constructors can't return a value, but they can do some default work.</p>
+
+
+<h2>That's it!</h2>
+
+<p>That, in a nutshell is all there is to know about controllers.  Really.</p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+URLS
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Code Igniter URLs</h1>
+
+<p>URLs in Code Igniter are designed to be search-engine and human friendly.  Rather than using the standard "query string" 
+approach to URLs that is synonymous with dynamic systems, Code Igniter uses a <strong>segment-based</strong> approach:</p>
+
+<code>www.your-site.com/<var>news</var>/<dfn>article</dfn>/<samp>345</samp></code>
+
+<p>The segments in the URL, in following with the Model-View-Controller approach, usually represent:</p>
+
+<code>www.your-site.com/<var>class</var>/<dfn>function</dfn>/<samp>ID</samp></code>
+
+<ol>
+<li>The first segment represents the controller <strong>class</strong> that should be invoked.</li>
+<li>The second segment represents the class <strong>function</strong>, or method, that should be called.</li>
+<li>The third, and any additional segments, represent the ID and any variables that will be passed to the controller.</p>
+</ol>
+
+<p>As you explore the "controllers" and "views" section of the user guide you'll learn more about how URLs work.</p>
+
+<h2>Removing the index.php file</h2>
+
+<p>By default, the <strong>index.php</strong> file will be included in your URLs:
+
+<code>www.your-site.com/<var>index.php</var>/news/article/234</code>
+
+<p>You can easily remove this file by using a .htaccess file with some simple rules. Here is an example
+ of such a file, using the "negative" method in which everything is redirected except the specified items:</p>
+
+<code>RewriteEngine on<br />
+RewriteCond $1 !^(index\.php|images|robots\.txt)<br />
+RewriteRule ^(.*)$ /index.php/$1 [L]</code>
+
+<p>In the above example, any HTTP request other than those for index.php, images, and robots.txt is treated as
+a request for your index.php file.</p>
+
+
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

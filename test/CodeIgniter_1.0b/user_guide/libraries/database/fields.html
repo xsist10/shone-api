@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../../docs.css' />
+
+<script type="text/javascript" src="../../scripts/nav.js"></script>
+<script type="text/javascript" src="../../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Database Library</a> &nbsp;&#8250;&nbsp;
+Field MetaData
+</div>
+<div id="breadcrumb_right"><a href="../../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Retrieving Field MetaData</h1>
+
+<p>Sometimes it's helpful to gather the field names or other metadata, like the column type, max length, etc.</p>
+
+
+<h2>$this->db->fields();</h2>
+<p>Returns an array of objects containing field information.  Usage example:</p>
+
+<code>
+$fields = $this->db->fields('table_name');<br /><br />
+
+foreach ($fields as $field)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $field->name;<br />
+&nbsp;&nbsp;&nbsp;echo $field->type;<br />
+&nbsp;&nbsp;&nbsp;echo $field->max_length;<br />
+}
+</code>
+
+<p>Make sure to include the table name in the first parameter of the function.</p>
+
+<p>The following data is available from this function if supported by your database:</p>
+
+<ul>
+<li>name - column name</li>
+<li>table - name of the table the column belongs to</li>
+<li>def - default value of the column</li>
+<li>max_length - maximum length of the column</li>
+<li>not_null - 1 if the column cannot be NULL</li>
+<li>primary_key - 1 if the column is a primary key</li>
+<li>unique_key - 1 if the column is a unique key</li>
+<li>multiple_key - 1 if the column is a non-unique key</li>
+<li>numeric - 1 if the column is numeric</li>
+<li>blob - 1 if the column is a BLOB</li>
+<li>type - the type of the column</li>
+<li>unsigned - 1 if the column is unsigned</li>
+<li>zerofill - 1 if the column is zero-filled</li>
+</ul>
+
+
+<h2>$this->db->field_names();</h2>
+<p>A simplified version of the above function that returns a simple array containing only the field names.</p>
+
+<code>
+$fields = $this->db->field_names('table_name');<br /><br />
+
+foreach ($fields as $field)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $field;<br />
+}
+</code>
+
+
+
+	
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

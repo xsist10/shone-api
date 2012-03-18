@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../../docs.css' />
+
+<script type="text/javascript" src="../../scripts/nav.js"></script>
+<script type="text/javascript" src="../../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Database Library</a> &nbsp;&#8250;&nbsp;
+Database Example Code
+</div>
+<div id="breadcrumb_right"><a href="../../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Database Quick Start: Example Code</h1>
+
+<p>The following page contains example code showing how the database class is used.  For complete details please
+read the individual pages describing each function.</p>
+
+
+<h2>Initializing the Database Class</h2>
+
+<p>The following code loads and initializes the database class based on your <a href="configuration.html">configuration</a> settings:</p>
+
+<code>$this->load->database();</code>
+
+<p>Once loaded the class is ready to be used as described below.</p>
+
+<p>Note: If all your pages require database access you can connect automatically.  See the <a href="connecting.html">connecting</a> page for details.</p>
+
+
+<h2>Standard Query With Multiple Results (Object Version)</h2>
+
+<code>$query = $this->db->query('SELECT name, title, email FROM my_table');<br />
+<br />
+foreach ($query->result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row->title;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row->name;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row->email;<br />
+}<br />
+<br />
+echo 'Total Results: ' . $query->num_rows();
+</code>
+
+<p>The above <dfn>restult()</dfn> function returns an array of <strong>objects</strong>.  Example:  $row->title</p>
+
+
+<h2>Standard Query With Multiple Results (Array Version)</h2>
+
+<code>$query = $this->db->query('SELECT name, title, email FROM my_table');<br />
+<br />
+foreach ($query->result_array() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['name'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['title'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['email'];<br />
+}</code>
+
+<p>The above <dfn>restult_array()</dfn> function returns an array of standard array indexes.  Example:  $row['title']</p>
+
+
+<h2>Standard Query With Single Result</h2>
+
+<code>$query = $this->db->query('SELECT name FROM my_table LIMIT 1');<br />
+<br />
+$row = $query->row();<br />
+echo $row->title;<br />
+</code>
+
+
+<h2>Standard Insert</h2>
+
+<code>$this->db->query('INSERT INTO mytable (title, name) VALLUES ('{$title}', '{$name}')');<br />
+<br />
+echo $this->db->affected_rows();
+</code>
+
+
+
+
+<h2>Active Record Query</h2>
+
+<p>The <a href="active_record.html">Active Record Pattern</a> gives you a simplified means of retrieving data:</p>
+
+<code>$this->db->use_table('table_name');<br />
+$this->db->limit(10);<br />
+$query = $this->db->get();<br />
+<br />
+foreach ($query->result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row->title;<br />
+}</code>
+	
+
+<h2>Active Record Insert</h2>
+
+<code>$this->db->use_table('table_name');<br />
+$this->db->set('title', $title);<br />
+$this->db->set('name', $name);<br />
+$this->db->insert();<br />
+<br />
+echo $this->db->affected_rows();
+</code>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

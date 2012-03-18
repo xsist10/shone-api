@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../../docs.css' />
+
+<script type="text/javascript" src="../../scripts/nav.js"></script>
+<script type="text/javascript" src="../../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Database Library</a> &nbsp;&#8250;&nbsp;
+Active Record
+</div>
+<div id="breadcrumb_right"><a href="../../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Active Record Database Functions</h1>
+
+
+<p>Code Igniter uses a modified version of the Active Record Database Pattern.  This pattern allows information to be retrieved, inserted, and updated in your database with minimal scripting.  Often, only two lines of code are necessary to perform a database action. The Active Pattern is most useful when all you need is to fetch a simple result, or to do a common insert or update.</p>
+
+<p>Unlike most active record scripts, Code Igniter's does not require that each database table be its own class file.  It instead provides a standardized interface that lets you work with any of your database tables.</p>
+
+<h2>Examples</h2>
+
+<p>Here are some example demonstrating how the active record syntax works, with an explanation of all the functions later.</p>
+
+<h3>Selecting Data</h3>
+
+<code>$this->db->use_table('mytable');<br />
+$this->db->where('id', $id);<br />
+$this->db->limit(10);<br />
+$query = $this->db->get();<br />
+<br />
+foreach ($query->result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row->title;<br />
+}</code>
+
+<p>The above example would build a query similar to this:</p>
+
+<code>SELECT * FROM mytable WHERE id = '{$id}' LIMIT 10</code>
+
+
+<h3>Inserting Data</h3>
+
+<code>$this->db->use_table('mytable');<br />
+$this->db->set('title', $title);<br />
+$this->db->set('name', $name);<br />
+$this->db->where('id', $id);<br />
+$this->db->insert();</code>
+
+<p>The above example would build a query similar to this:</p>
+<code>INSERT INTO mytable (title, name) VALUES ('{$title}', '{$name}')</code>
+
+
+<h2>Active Record Reference Guide</h2>
+
+<p>What follows is a listing a all the available functions.</p>
+
+<h2>Selecting a Table For Use</h2>
+<p>Before you can run a query using the active record functions you must select which table you intend to use.  This is done as follows:</p>
+
+<code>$this->db->use_table('table_name');</code>
+
+</p>Where <strong>table_name</strong> is the name of the table you want to use.</p>
+
+<h2>$this->db->get();</h2>
+<p>Fetches the result from the selected table, and returns a database result object. You
+will typically assign the query to your own variable, as in this example:</p>
+
+<code>$this->db->use_table('table_name');<br />
+$query = $this->db->get();
+</code>
+
+<p>To show the results you will use one of the <a href="results.html">result functions</a>.</p>
+
+
+<h2>$this->db->where();</h2>
+<p>This function enables you to set <strong>WHERE</strong> clauses using one of three methods:</p>
+
+<ol>
+	<li><strong>Simple key/value method:</strong>
+
+	<code>$this->db->where('name', $name);</code>
+	
+	<p>The above would produce:</p>
+	
+	<code>WHERE name = 'Joe'</code>
+	
+	<p>If you use multiple function calls they will be chained together with <var>AND</var> between them:</p>
+	
+	<code>$this->db->where('name', $name);<br />
+	$this->db->where('title', $title);<br />
+	$this->db->where('status', $status);</code>
+	
+	<p>This would produce this:</p>
+	<code>WHERE = 'Joe' AND title = 'boss' AND status = 'active'</code>
+
+
+	</li>
+	<li><strong>Associative array method:</strong>
+
+
+	<code>
+	$array = array('name' => $name, 'title' => $title, 'status' => $status);<br /><br />
+	
+	$this->db->where($array);</code>
+	
+	<p>The above would produce:</p>
+	
+	<code>WHERE name = 'Joe' AND title = 'boss' AND status = 'active'</code>
+
+	</li>
+		<li><strong>Custom method:</strong>
+		
+		<p>You can write your own clauses manually:</p>
+
+		<code>
+		$where = "name='Joe' AND status='boss' OR status='active'";<br /><br />
+		$this->db->where($where);</code>
+
+</ol>
+
+<h2>$this->db->limit(<var>n</var>);</h2>
+<p>Lets you limit the query result, where <var>n</var> is the number of rows you would like it limited to.</p>
+
+<h2>$this->db->offset(<var>n</var>);</h2>
+<p>Lets you set a result offset.  Consider this code:</p>
+
+<code>
+$this->db->limit(10);<br />
+$this->db->offset(20);</code>
+
+<p>This example would produce:</p>
+
+<code>LIMIT 20, 10</code>
+
+
+<h2>$this->db->order_by(<var>column</var>);</h2>
+<p>Lets you set an ORDER BY clause, where <var>column</var> is the name of the column you would like to order by.</p>
+
+<h2>$this->db->order(<var>desc</var>);</h2>
+<p>Lets you set the direction of the order.  Options are typically <var>asc</var> or <var>desc</var>.</p>
+
+
+
+<h2>$this->db->set();</h2>
+<p>This function enables you to set column name/values when doing <dfn>inserts</dfn> or <dfn>updates</dfn>.  The tag can be used in one of two methods:</p>
+
+<ol>
+	<li><strong>Simple key/value method:</strong>
+
+	<code>$this->db->set('name', $name);</code>
+	
+	<p>The above would produce:</p>
+	
+	<code>name = 'Rick'</code>
+	
+	<p>If you use multiple function called they will be assembled properly based on whether you are doing an insert or an update:</p>
+	
+	<code>$this->db->set('name', $name);<br />
+	$this->db->set('title', $title);<br />
+	$this->db->set('status', $status);</code>
+	
+	<p>The above code would produce this for an insert:</p>
+	<code>(name, title, status) VALUES ('{$name}', '{$title}', '{$status}')</code>	
+	<p>And this for an update:</p>
+
+	<code>name = '{$name}', title = '{$title}', status = '{$status}'</code>
+
+
+	</li>
+	<li><strong>Associative array method:</strong>
+
+
+	<code>
+	$array = array('name' => $name, 'title' => $title, 'status' => $status);<br /><br />
+	
+	$this->db->set($array);</code>
+	
+	<p>The above code will be assembled properly based on whether you are doing an insert or an update.</p>
+	</li>
+</ol>
+
+
+<h2>$this->db->insert();</h2>
+<p>Generates an insert string based on the other parameters you've set, and runs the query.</p>
+
+<h2>$this->db->update();</h2>
+<p>Generates an update string based on the other parameters you've set, and runs the query.</p>
+
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

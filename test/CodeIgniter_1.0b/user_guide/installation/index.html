@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+Installation Instructions
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Installation Instructions</h1>
+
+<p>Code Igniter is installed in four steps:</p>
+
+<ol>
+<li>Unzip the package.</li>
+<li>Upload the Code Igniter folders and files to your server.  Normally the index.php file will be at your root.</li>
+<li>Open the <dfn>config/config.php</dfn> file with a text editor and set your base URL.</li>
+<li>If you intend to use a database, open the <dfn>config/database.php</dfn> file with a text editor and set your database settings.</li>
+</ol>
+
+<p>If you wish to increase security by hiding the location of your Code Igniter files you can rename the <dfn>system</dfn> folder
+to something more private.  If you do rename it, you must open your main <kbd>index.php</kbd> file and set the <samp>$system_folder</samp> 
+variable at the top of the page with the new name you've chosen.</p>
+
+<p>That's it!</p>
+
+<p>If you're new to Code Igniter, please read the <a href="../general/index.html">Getting Started</a> section of the User Guide to begin learning how
+to build dynamic PHP/MySQL applications. Enjoy!</p>
+
+<h2>Troubleshooting</h2>
+
+<p>If you find that no matter what you put in your URL only your default page is loading, it might be that your server does not support the PATH_INFO variable needed
+to serve search-engine friendly URLs.  As a first step, open the main <dfn>index.php</dfn> file and look for the <kbd>URI Protocol</kbd>
+information. It will recommend that you try a couple alternate settings.  If it still doesn't work after you've tried this you'll need
+to force Code Igniter to add a question mark to your URLs.  To do this open your <kbd>config/config.php</kbd> file and change this:</p>
+
+<code>$config['index_page'] = "index.php";</code>
+
+<p>To this:</p>
+
+<code>$config['index_page'] = "index.php?";</code>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>

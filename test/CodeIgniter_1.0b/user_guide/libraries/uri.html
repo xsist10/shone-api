@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<title>Code Igniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../docs.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../docs.css' />
+
+<script type="text/javascript" src="../scripts/nav.js"></script>
+<script type="text/javascript" src="../scripts/prototype.lite.js"></script>
+<script type="text/javascript" src="../scripts/moo.fx.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	myHeight = new fx.Height('nav', {duration: 400}); 
+	myHeight.hide();
+}
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='Rick Ellis' />
+<meta name='description' content='Code Igniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle.jpg" width="153" height="44" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead"><h1>Code Igniter User Guide Version 1.0</h1></div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<div id="breadcrumb">
+<a href="http://www.codeigniter.com/">Code Igniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+URI Class
+</div>
+<div id="breadcrumb_right"><a href="../toc.html">Full Table of Contents</a> </div>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>URI Class</h1>
+
+<p>The URI Class provides functions that help you retrieve information from your URI strings.</p>
+
+<p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no need to do it manually.</p>
+
+
+<h2>$this->uri->segment(<var>n</var>)</h2>
+
+<p>Permits you to retrieve a specific segment. Where <var>n</var> is the segment number you wish to retrieve.  
+Segments are numbered left to right. For example, if your full URL is this:</p>
+
+<code>http://www.your-site.com/index.php/news/local/345</code>
+
+<p>The segment numbers would be this:</p>
+
+<ol>
+<li>news</li>
+<li>local</li>
+<li>345</li>
+</ol>
+
+<p>By default the function returns FALSE (boolean) if the segment does not exist. There is an optional second parameter that 
+permits you to set your own default value if the segment is missing.
+For example, this would tell the function to return the number zero in the event of failure:</p>
+
+<code>$product_id = $this->uri->segment(3, 0);</code>
+
+<p>It helps avoid having to write code like this:</p>
+
+<code>if ($this->uri->segment(3) === FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$product_id = 0;<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$product_id = $this->uri->segment(3);<br />
+}<br />
+</code>
+
+
+<h2>$this->uri->slash_segment(<var>n</var>)</h2>
+
+<p>This function is almost identical to the one above, except it adds a trailing and/or leading slash based on the second
+parameter.  If the parameter is not used, a trailing slash added.  Examples:</p>
+
+<code>$this->uri->slash_segment(<var>3</var>);<br />
+$this->uri->slash_segment(<var>3</var>, 'leading');<br />
+$this->uri->slash_segment(<var>3</var>, 'both');</code>
+
+<p>Returns:</p>
+
+<ol>
+<li>segment/</li>
+<li>/segment</li>
+<li>/segment/</li>
+</ol>
+
+
+<h2>$this->uri->segment_array()</h2>
+
+<p>Returns an array containing the URI segments.  For example:</p>
+
+<code>
+$segs = $this->uri->segment_array();<br />
+<br />
+foreach ($segs as $segment)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $segment;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo '&lt;br />';<br />
+}</code>
+
+
+<h2>$this->uri->uri_string()</h2>
+
+<p>Returns a string with the complete URI.  For example, if this is your full URL:</p>
+
+<code>http://www.your-site.com/index.php/news/local/345</code>
+
+<p>The function would return this:</p>
+
+<code>news/local/345</code>
+
+
+<h2>$this->uri->total_segment()</h2>
+
+<p>Returns the total number of segments.</p>
+
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p><a href="#top">Top of Page</a> &nbsp;&middot;&nbsp; <a href="../index.html">User Guide Home</a><p>
+<p><a href="http://www.codeigniter.com">Code Igniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 &nbsp;&middot;&nbsp; <a href="http://www.pmachine.com">pMachine, Inc.</a></p>
+</div>
+
+</body>
+</html>
