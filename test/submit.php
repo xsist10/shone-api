@@ -7,7 +7,7 @@ require_once 'config.php';
 try
 {
     $oSecurity = new ShoneSecurity($sKey);
-    $sHash = $oSecurity->submit('CodeIgniter_1.1b');
+    $sHash = $oSecurity->submit('/path/to/file');
     echo "Hash: " . $sHash . "\n";
 
     $aResult = $oSecurity->get_job($sHash);

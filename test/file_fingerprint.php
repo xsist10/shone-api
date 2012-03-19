@@ -7,7 +7,7 @@ require_once 'config.php';
 try
 {
     $oSecurity = new ShoneSecurity($sKey);
-    $aResult = $oSecurity->file_fingerprint('CodeIgniter_1.1b/index.php');
+    $aResult = $oSecurity->file_fingerprint('/path/to/file');
     print_r($aResult);
 }
 catch (ShoneSecurityException $oException)
