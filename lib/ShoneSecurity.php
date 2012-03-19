@@ -10,7 +10,7 @@ class ShoneSecurity
     #-> Constants
     const USER_AGENT   = 'Shone PHP Client';
     const VERSION      = '1.0 PHP';
-    const API_ENDPOINT = 'http://shone.localhost/index.php';
+    const API_ENDPOINT = 'http://shone.localhost/';
 
     const RESULT_SUCCESS = 'Success';
     const RESULT_FAILED  = 'Failed';
@@ -52,8 +52,8 @@ class ShoneSecurity
                 $aParam[] = urlencode($sKey) . '=' . urlencode($sValue);
             }
         }
-        $sUrl = self::API_ENDPOINT . '?page=' . $sPage
-              . '&key=' . $this->sKey
+        $sUrl = self::API_ENDPOINT . '/' . $sPage
+              . '?key=' . $this->sKey
               . '&encode=json'
               . (!empty($aParam) ? '&' . implode('&', $aParam) : '');
         $sResult = file_get_contents($sUrl);
@@ -105,7 +105,6 @@ class ShoneSecurity
         curl_setopt($oCurl, CURLOPT_POST, true);
         curl_setopt($oCurl, CURLOPT_POSTFIELDS, $aArguments);
         $sResult = curl_exec($oCurl);
-        echo $sResult ."\n";
 
         if (!$sResult)
         {
@@ -221,7 +220,7 @@ class ShoneSecurity
               . "<files>\n" . $sScan ."</files>\n"
               . "</job>\n");
 
-        $aResult = $this->_post('job.submit', array('job' => '@data.gz'));
+        $aResult = $this->_post('job/submit', array('job' => '@data.gz'));
 
         if ($aResult->Status != self::RESULT_SUCCESS)
         {
@@ -233,14 +232,14 @@ class ShoneSecurity
 
     public function get_job($sHash)
     {
-        return $this->_get('job.get', array('hash' => $sHash));
+        return $this->_get('job/get', array('hash' => $sHash));
     }
 
     public function file_fingerprint($sFileName)
     {
         $sMd5 = md5_file($sFileName);
         $sSha1 = sha1_file($sFileName);
-        return $this->_get('library.file_fingerprint', array('md5' => $sMd5, 'sha1' => $sSha1));
+        return $this->_get('library/file_fingerprint', array('md5' => $sMd5, 'sha1' => $sSha1));
     }
 }
 
