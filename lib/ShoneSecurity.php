@@ -52,7 +52,7 @@ class ShoneSecurity
                 $aParam[] = urlencode($sKey) . '=' . urlencode($sValue);
             }
         }
-        $sUrl = self::API_ENDPOINT . '/' . $sPage
+        $sUrl = self::API_ENDPOINT . $sPage
               . '?key=' . $this->sKey
               . '&encode=json'
               . (!empty($aParam) ? '&' . implode('&', $aParam) : '');
@@ -93,9 +93,10 @@ class ShoneSecurity
                 $aParam[] = urlencode($sKey) . '=' . urlencode($sValue);
             }
         }
-        $sUrl = self::API_ENDPOINT . '?page=' . $sPage
-              . '&key=' . $this->sKey
+        $sUrl = self::API_ENDPOINT . $sPage
+              . '?key=' . $this->sKey
               . '&encode=json';
+
         $oCurl = curl_init();
         curl_setopt($oCurl, CURLOPT_HEADER, 0);
         curl_setopt($oCurl, CURLOPT_VERBOSE, 0);
@@ -184,7 +185,7 @@ class ShoneSecurity
     {
         if (empty(self::$aCommonChecksums))
         {
-             $aResult = $this->_get('job.common_checksums');
+             $aResult = $this->_get('job/common_checksums');
              if ($aResult->Status == self::RESULT_SUCCESS)
              {
                 self::$aCommonChecksums = (array)$aResult->Hashes;
@@ -205,7 +206,6 @@ class ShoneSecurity
             throw new ShoneSecurityException('No files found in folder');
         }
 
-        //echo gzencode($sScan) ."\n";
         gzfile_set_contents("data.gz", "<?xml version='1.0'?>\n"
               . "<job>\n"
               . "<version>\n"
@@ -224,7 +224,7 @@ class ShoneSecurity
 
         if ($aResult->Status != self::RESULT_SUCCESS)
         {
-            throw new Exception('Submit failed. ' . $aResult->Detail);
+            throw new ShoneSecurityException('Submit failed. ' . $aResult->Detail);
         }
 
         return $aResult->Hash;

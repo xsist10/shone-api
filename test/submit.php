@@ -7,7 +7,7 @@ require_once 'config.php';
 try
 {
     $oSecurity = new ShoneSecurity($sKey);
-    $sHash = $oSecurity->submit('path/to/code');
+    $sHash = $oSecurity->submit('CodeIgniter_1.1b');
     echo "Hash: " . $sHash . "\n";
 
     $aResult = $oSecurity->get_job($sHash);
@@ -15,5 +15,5 @@ try
 }
 catch (ShoneSecurityException $oException)
 {
-    echo "Failed: " . $oException->getMessage . "\n";
+    echo "Failed: " . $oException->getMessage() . "\n";
 }

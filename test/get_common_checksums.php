@@ -12,5 +12,5 @@ try
 }
 catch (ShoneSecurityException $oException)
 {
-    echo "Failed: " . $oException->getMessage . "\n";
+    echo "Failed: " . $oException->getMessage() . "\n";
 }
