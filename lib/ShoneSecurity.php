@@ -10,7 +10,7 @@ class ShoneSecurity
     #-> Constants
     const USER_AGENT   = 'Shone PHP Client';
     const VERSION      = '1.0 PHP';
-    const API_ENDPOINT = 'http://shone.localhost/';
+    const API_ENDPOINT = 'http://www.shone.co.za/';
 
     const RESULT_SUCCESS = 'Success';
     const RESULT_FAILED  = 'Failed';
