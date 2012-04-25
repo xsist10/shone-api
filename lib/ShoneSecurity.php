@@ -10,7 +10,7 @@ class ShoneSecurity
     #-> Constants
     const USER_AGENT   = 'Shone PHP Client';
     const VERSION      = '1.0 PHP';
-    const API_ENDPOINT = 'http://www.shone.co.za/';
+    const API_ENDPOINT = 'http://shone.localhost/';
 
     const RESULT_SUCCESS = 'Success';
     const RESULT_FAILED  = 'Failed';
@@ -56,6 +56,7 @@ class ShoneSecurity
               . '?key=' . $this->sKey
               . '&encode=json'
               . (!empty($aParam) ? '&' . implode('&', $aParam) : '');
+        echo $sUrl . "\n";
         $sResult = file_get_contents($sUrl);
 
         if (!$sResult)
@@ -240,6 +241,11 @@ class ShoneSecurity
         $sMd5 = md5_file($sFileName);
         $sSha1 = sha1_file($sFileName);
         return $this->_get('library/file_fingerprint', array('md5' => $sMd5, 'sha1' => $sSha1));
+    }
+    
+    public function get_jobs()
+    {
+        return $this->_get('job/view');
     }
 }
 
