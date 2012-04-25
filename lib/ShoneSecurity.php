@@ -56,7 +56,6 @@ class ShoneSecurity
               . '?key=' . $this->sKey
               . '&encode=json'
               . (!empty($aParam) ? '&' . implode('&', $aParam) : '');
-        echo $sUrl . "\n";
         $sResult = file_get_contents($sUrl);
 
         if (!$sResult)
