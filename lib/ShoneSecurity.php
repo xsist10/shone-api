@@ -10,7 +10,7 @@ class ShoneSecurity
     #-> Constants
     const USER_AGENT   = 'Shone PHP Client';
     const VERSION      = '1.0 PHP';
-    const API_ENDPOINT = 'http://www.shone.co.za/';
+    const API_ENDPOINT = 'https://www.shone.co.za/';
 
     const RESULT_SUCCESS = 'Success';
     const RESULT_FAILED  = 'Failed';
@@ -37,10 +37,10 @@ class ShoneSecurity
     /**
      * Call the remote API with a GET request
      *
-     * @param   string $sPage
-     * @param   array $aArguments
-     * @return  array
-     * @throws  ShoneSecurityException
+     * @param string $sPage
+     * @param array $aArguments
+     * @return array
+     * @throws ShoneSecurityException
      */
     private function _get($sPage, $aArguments = array())
     {
@@ -57,6 +57,7 @@ class ShoneSecurity
               . '&encode=json'
               . (!empty($aParam) ? '&' . implode('&', $aParam) : '');
         $sResult = file_get_contents($sUrl);
+        echo $sUrl . "\n";
 
         if (!$sResult)
         {
@@ -66,7 +67,7 @@ class ShoneSecurity
         $aResult = json_decode($sResult);
         if (empty($aResult))
         {
-            throw new ShoneSecurityException('Malformed JSON');
+            throw new ShoneSecurityException('Malformed or empty JSON');
         }
 
         return $aResult;
@@ -75,10 +76,10 @@ class ShoneSecurity
     /**
      * Call the remote API with a POST request
      *
-     * @param   string $sPage
-     * @param   array $aArguments
-     * @return  array
-     * @throws  ShoneSecurityException
+     * @param string $sPage
+     * @param array $aArguments
+     * @return array
+     * @throws ShoneSecurityException
      */
     private function _post($sPage, $aArguments = array())
     {
@@ -195,7 +196,15 @@ class ShoneSecurity
         return self::$aCommonChecksums;
     }
 
-    public function submit($sFolder)
+    /**
+     * Submit a new job request to the remote server.
+     * Returns a hash value referencing the job
+     *
+     * @param   string  $sFolder
+     * @param   string  $sLabel   (optional)
+     * @return  string
+     */
+    public function submit($sFolder, $sLabel = '')
     {
         // Scan the folder
         $this->sRootFolder = $sFolder;
@@ -220,7 +229,7 @@ class ShoneSecurity
               . "<files>\n" . $sScan ."</files>\n"
               . "</job>\n");
 
-        $aResult = $this->_post('job/submit', array('job' => '@data.gz'));
+        $aResult = $this->_post('job/submit', array('job' => '@data.gz', 'label' => $sLabel));
 
         if ($aResult->Status != self::RESULT_SUCCESS)
         {
@@ -230,21 +239,54 @@ class ShoneSecurity
         return $aResult->Hash;
     }
 
+    /**
+     * Get the result of a submitted job
+     *
+     * @param   string  $sHash
+     * @return  array
+     */
     public function get_job($sHash)
     {
         return $this->_get('job/get', array('hash' => $sHash));
     }
 
+    /**
+     * Fingerprint a file and identify what application/version it belongs to
+     *
+     * @param   string  $sFileName
+     * @return  array
+     */
     public function file_fingerprint($sFileName)
     {
         $sMd5 = md5_file($sFileName);
         $sSha1 = sha1_file($sFileName);
         return $this->_get('library/file_fingerprint', array('md5' => $sMd5, 'sha1' => $sSha1));
     }
-    
-    public function get_jobs()
+
+    /**
+     * Get a list of jobs from the remote server
+     *
+     * @param   string  $sLabel           (optional, default='')
+     * @param   boolean $bOnlyDeprecated  (optional, default=false)
+     * @param   boolean $bOnlyVulnerable  (optional, default=false)
+     * @param   integer $iDateStart       (optional, default=0)
+     * @param   integer $iDateEnd         (optional, default=0)
+     * @param   mixed   $mIpAddress       (optional, default=0)
+     * @return  array
+     */
+    public function get_jobs($sLabel = '', $bOnlyDeprecated = false, $bOnlyVulnerable = false, $iDateStart = 0, $iDateEnd = 0, $mIpAddress = 0)
     {
-        return $this->_get('job/view');
+        $iIpAddress = ctype_digit($mIpAddress) ? $mIpAddress : sprintf("%u", ip2long($mIpAddress));
+
+        $filters = array(
+            'label'             => $sLabel,
+            'is_deprecated'     => $bOnlyDeprecated ? 1 : 0,
+            'is_vulnerable'     => $bOnlyVulnerable ? 1 : 0,
+            'date_range_start'  => $iDateStart,
+            'date_range_end'    => $iDateEnd,
+            'server'            => $iIpAddress,
+        );
+        return $this->_get('job/view', $filters);
     }
 }
 
@@ -252,15 +294,15 @@ class ShoneSecurityException extends Exception {}
 
 if (!function_exists('gzfile_set_contents'))
 {
-	function gzfile_set_contents($filename, $data, $use_include_path = 0)
+    function gzfile_set_contents($filename, $data, $use_include_path = 0)
     {
-        $iBitsWritten = 0;
-		$file = @gzopen($filename, 'wb', $use_include_path);
-		if ($file)
+        $bits_written = 0;
+        $file = @gzopen($filename, 'wb', $use_include_path);
+        if ($file)
         {
-            $iBitsWritten = gzwrite($file, $data);
-			gzclose($file);
+            $bits_written = gzwrite($file, $data);
+            gzclose($file);
 		}
-        return $iBitsWritten > 0;
-	}
+        return $bits_written > 0;
+    }
 }
