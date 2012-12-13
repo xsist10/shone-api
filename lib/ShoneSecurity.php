@@ -288,6 +288,28 @@ class ShoneSecurity
         );
         return $this->_get('job/view', $filters);
     }
+
+    /**
+     * Get the status of a job by hash
+     *
+     * @param   string  $sHash
+     * @return  array
+     */
+    public function get_status_by_hash($sHash)
+    {
+        return $this->_get('job/status', array('hash' => $sHash));
+    }
+
+    /**
+     * Get the status of a job by label
+     *
+     * @param   string  $sLabel
+     * @return  array
+     */
+    public function get_status_by_label($sLabel)
+    {
+        return $this->_get('job/status', array('label' => $sLabel));
+    }
 }
 
 class ShoneSecurityException extends Exception {}
